@@ -14,13 +14,14 @@ public class LaunchChromeBrowser {
         WebDriver webDriver = new ChromeDriver();
         webDriver.get("https://stackoverflow.com/");
 
-        WebElement stackOverflowLoginField = webDriver.findElement(By.id("se-login-fields"));
-        if(stackOverflowLoginField.isDisplayed()&&stackOverflowLoginField.isEnabled()){
-            System.out.println("Log in field is enabled and displayed.");
+        WebElement stackOverflowSignupButton = webDriver.findElement(By.className("-ctas"));
+        if(stackOverflowSignupButton.isDisplayed()&&stackOverflowSignupButton.isEnabled()){
+            System.out.println("Sign up button is enabled and displayed.");
         }
         else{
             System.out.println("Test Failed!!.");
         }
+        stackOverflowSignupButton.click();
 
         WebElement stackOverflowLoginId = webDriver.findElement(By.id("display-name"));
         stackOverflowLoginId.sendKeys("neeraja");
@@ -31,8 +32,15 @@ public class LaunchChromeBrowser {
         WebElement stackOverflowLoginPassword = webDriver.findElement(By.id("password"));
         stackOverflowLoginPassword.sendKeys("qwerty123");
 
-        WebElement signInButton = webDriver.findElement(By.id("submit-button"));
-        signInButton.click();
+        try {
+            Thread.sleep(3 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement captchaLogo = webDriver.findElement(By.id("no-captcha-here"));
+        captchaLogo.click();
+        System.out.println("When selecting the right images mentioned, sign up will be successfull.");
 
 
     }
